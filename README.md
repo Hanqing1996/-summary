@@ -12,9 +12,6 @@ parseInt(string, radix);
 // 返回从给定的字符串中解析出的一个整数。
 ```
 * 注意点
-```
-parseInt(string, radix);
-```
 radix 的值域为[2,36]。<strong>在radix为 undefined，或者radix为 0 或者没有指定的情况下</strong>，JavaScript 作如下处理（以下的基数指的就是进制）：
 1. 如果字符串 string 以"0x"或者"0X"开头, 则基数是16 (16进制).
 2. 如果字符串 string 以"0"开头, 基数是8（八进制）或者10（十进制），那么具体是哪个基数由实现环境决定。ECMAScript 5 规定使用10，但是并不是所有的浏览器都遵循这个规定。因此，永远都要明确给出radix参数的值。
@@ -41,6 +38,5 @@ parseInt('2') // 2：2的十进制
 parseInt('0.3') // 0: parseInt 解析"1",忽略".3",十进制下的0是0
 ```
 ---
-
 
 
