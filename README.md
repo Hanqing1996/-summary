@@ -38,5 +38,5 @@ parseInt('2') // 2：2的十进制
 parseInt('0.3') // 0: parseInt 解析"1",忽略".3",十进制下的0是0
 ```
 ---
-
+#### No.4 介绍下 Set、Map、WeakSet 和 WeakMap 的区别？
 
