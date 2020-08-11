@@ -84,7 +84,7 @@ console.log(difference)	// Set {1}
 > The WeakMap object is a collection of key/value pairs in which the keys are weakly referenced. The keys must be objects and the values can be arbitrary values.键名必须是对象类型且为弱引用，键值可以是任意的
 * WeakMap 的 key 是不可枚举的。
 ---
-#### No.7 ES5/ES6 的继承除了写法以外还有什么区别？
+#### No.7【TODO】 ES5/ES6 的继承除了写法以外还有什么区别？
 
 #### 什么是原型
 * 参考:
@@ -109,29 +109,13 @@ console.log(Person === Person.prototype.constructor); // true
 ```
 [![aL62in.png](https://s1.ax1x.com/2020/08/11/aL62in.png)](https://imgchr.com/i/aL62in)
 
+---
+#### No.26 介绍模块化发展历程
+> 可从IIFE、AMD、CMD、CommonJS、UMD、webpack(require.ensure)、ES Module、<script type="module"> 这几个角度考虑。
 
-#### ES5 是怎么实现继承的？
-> 构造函数 A 与 构造函数 B 并没有继承关系，即构造函数 B 没有继承构造函数 A 上面的属性
-```
-function A() {
-  this.a = 'hello';
-}
+* 参考：[ES6 系列之模块加载方案](https://github.com/mqyqingfeng/Blog/issues/108)
 
-function B() {
-  A.call(this);
-  this.b = 'world';
-}
-
-B.prototype.__proto__ =A.prototype
-
-let b = new B();
-```
-[![aL2yZD.png](https://s1.ax1x.com/2020/08/11/aL2yZD.png)](https://imgchr.com/i/aL2yZD)
-
-#### ES6
-
-
-
+AMD 是先执行模块代码，导出的对象不急用，CMD 是需要用到模块导出对象时才执行模块代码
 
 
 
