@@ -40,3 +40,37 @@ parseInt('0.3') // 0: parseInt 解析"1",忽略".3",十进制下的0是0
 ---
 #### No.4 介绍下 Set、Map、WeakSet 和 WeakMap 的区别？
 
+#### Set
+* Same-value-zero equality
+> 向 Set 加入值的时候，不会发生类型转换，所以5和"5"是两个不同的值。Set 内部判断两个值是否不同，使用的算法叫做“Same-value-zero equality”，它类似于精确相等运算符（===），主要的区别是Same-value-zero equality 认为NaN等于自身，而精确相等运算符认为NaN不等于自身。
+```
+let set = new Set();
+let a = NaN;
+let b = NaN;
+set.add(a);
+set.add(b);
+set // Set {NaN}
+```
+* 将 Set 结构转为数组
+> Array.from 方法可以将 Set 结构转为数组
+```
+const items = new Set([1, 2, 3, 2])
+const array = Array.from(items)
+console.log(array)	// [1, 2, 3]
+// 或
+const arr = [...items]
+console.log(arr)	// [1, 2, 3]
+```
+* 用 set 实现 交集（Intersect）、并集（Union）、差集（Difference）
+```
+let set1 = new Set([1, 2, 3])
+let set2 = new Set([4, 3, 2])
+
+let intersect = new Set([...set1].filter(value => set2.has(value)))
+let union = new Set([...set1, ...set2])
+let difference = new Set([...set1].filter(value => !set2.has(value)))
+
+console.log(intersect)	// Set {2, 3}
+console.log(union)		// Set {1, 2, 3, 4}
+console.log(difference)	// Set {1}
+```
