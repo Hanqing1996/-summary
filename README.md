@@ -74,3 +74,69 @@ console.log(intersect)	// Set {2, 3}
 console.log(union)		// Set {1, 2, 3, 4}
 console.log(difference)	// Set {1}
 ```
+#### WeakSet
+* WeakSet 与 Set 的区别：
+> WeakSet 只能储存对象引用，不能存放值，而 Set 对象都可以
+* weak
+> meaning references to objects in a WeakSet are held weakly.WeakSet 对象中储存的对象值都是被弱引用的，即如果没有其他的变量或属性引用这个对象值，则这个对象将会被垃圾回收掉（不考虑该对象还存在于 WeakSet 中），所以，WeakSet 对象里有多少个成员元素，取决于垃圾回收机制有没有运行，运行前后成员个数可能不一致，遍历结束之后，有的成员可能取不到了（被垃圾回收了），WeakSet 对象是无法被遍历的（ES6 规定 WeakSet 不可遍历），也没有办法拿到它包含的所有元素
+
+#### WeakMap
+> The WeakMap object is a collection of key/value pairs in which the keys are weakly referenced. The keys must be objects and the values can be arbitrary values.键名必须是对象类型且为弱引用，键值可以是任意的
+* WeakMap 的 key 是不可枚举的。
+---
+#### No.7 ES5/ES6 的继承除了写法以外还有什么区别？
+
+#### 什么是原型
+* 参考:
+[JavaScript深入之从原型到原型链](https://github.com/mqyqingfeng/Blog/issues/2)
+* 什么是原型
+```
+function Person() {}
+var person = new Person();
+```
+Person.prototype 和 person.__proto__  访问的是同一个东西，我们将其称为：原型
+
+![aL61KO.png](https://s1.ax1x.com/2020/08/11/aL61KO.png)
+* 原型和原型之间的关系
+> 原型也是一个对象，对象与对象之间的继承关系，应该用 _proto_来表示
+
+![aLcRTH.png](https://s1.ax1x.com/2020/08/11/aLcRTH.png)
+* constructor 的作用
+> 由原型指向构造函数。
+```
+function Person() {}
+console.log(Person === Person.prototype.constructor); // true
+```
+[![aL62in.png](https://s1.ax1x.com/2020/08/11/aL62in.png)](https://imgchr.com/i/aL62in)
+
+
+#### ES5 是怎么实现继承的？
+> 构造函数 A 与 构造函数 B 并没有继承关系，即构造函数 B 没有继承构造函数 A 上面的属性
+```
+function A() {
+  this.a = 'hello';
+}
+
+function B() {
+  A.call(this);
+  this.b = 'world';
+}
+
+B.prototype.__proto__ =A.prototype
+
+let b = new B();
+```
+[![aL2yZD.png](https://s1.ax1x.com/2020/08/11/aL2yZD.png)](https://imgchr.com/i/aL2yZD)
+
+#### ES6
+
+
+
+
+
+
+
+
+
+
+
