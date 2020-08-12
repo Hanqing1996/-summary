@@ -115,12 +115,57 @@ console.log(Person === Person.prototype.constructor); // true
 
 * 参考：[ES6 系列之模块加载方案](https://github.com/mqyqingfeng/Blog/issues/108)
 
-AMD 是先执行模块代码，导出的对象不急用，CMD 是需要用到模块导出对象时才执行模块代码
+#### AMD
+> AMD是RequireJS 在推广过程中对模块定义的规范化产出。
+* AMD 是先执行模块代码，导出的对象不急用，CMD 是需要用到模块导出对象时才执行模块代码并导出对象
+* 浏览器端一般采用 AMD 规范。
 
+#### CMD
+> CMD 其实就是 SeaJS 在推广过程中对模块定义的规范化产出。
 
+#### AMD 与 CMD 的区别
+1. CMD 推崇依赖就近，AMD 推崇依赖前置
+* AMD
+```
+// require.js 例子中的 main.js
+// 依赖必须一开始就写好
+require(['./add', './square'], function(addModule, squareModule) {
+    console.log(addModule.add(1, 1))
+    console.log(squareModule.square(3))
+});
+```
+* CMD
+```
+// sea.js 例子中的 main.js
+define(function(require, exports, module) {
+    var addModule = require('./add');
+    console.log(addModule.add(1, 1))
 
+    // 依赖可以就近书写
+    var squareModule = require('./square');
+    console.log(squareModule.square(3))
+});
+```
 
+#### [CommonJS](https://github.com/Hanqing1996/node-notes#nodejs-%E7%9A%84%E6%A8%A1%E5%9D%97%E6%9C%BA%E5%88%B6)
+> 是 Node.js 模块遵循的规范
+* 与CMD一样，在需要用到模块的时候才去加载模块文件，加载完再接着执行。
 
+#### CommonJS 与 AMD
+> CommonJS 规范加载模块是同步的，也就是说，只有加载完成，才能执行后面的操作。
 
+> AMD规范则是非同步加载模块，允许指定回调函数。
 
+> 由于 Node.js 主要用于服务器编程，模块文件一般都已经存在于本地硬盘，所以加载起来比较快，不用考虑非同步加载的方式，所以 CommonJS 规范比较适用。
 
+> 但是，如果是浏览器环境，要从服务器端加载模块，这时就必须采用非同步模式，因此浏览器端一般采用 AMD 规范。
+
+#### ES6 新的模块加载方案
+* 与AMD一样，先执行模块代码
+
+#### ES6与Common.js
+* 它们有两个重大差异。
+1. CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用。
+> 原因：CommonJS 模块输出的是值的拷贝，也就是说，一旦输出一个值，模块内部的变化就影响不到这个值。ES6 模块的运行机制与 CommonJS 不一样。JS 引擎对脚本静态分析的时候，遇到模块加载命令 import，就会生成一个只读引用。等到脚本真正执行时，再根据这个只读引用，到被加载的那个模块里面去取值。换句话说，ES6 的 import 有点像 Unix 系统的“符号连接”，原始值变了，import 加载的值也会跟着变。因此，ES6 模块是动态引用，并且不会缓存值，模块里面的变量绑定其所在的模块。
+2. CommonJS 模块是运行时加载，ES6 模块是编译时输出接口。
+> 原因 CommonJS 加载的是一个对象（即module.exports属性），该对象只有在脚本运行完才会生成。而 ES6 模块不是对象，它的对外接口只是一种静态定义，在代码静态解析阶段就会生成。
