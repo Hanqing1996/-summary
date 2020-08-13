@@ -459,6 +459,63 @@ http://www.baidu.com
   
   console.log(webSite.siteUrl) // http://www.baidu.com
 ```
+---
+#### No.100 请写出如下代码的打印结果
+```
+function Foo() {
+Foo.a = function() {
+console.log(1)
+}
+this.a = function() {
+console.log(2)
+}
+}
+Foo.prototype.a = function() {
+console.log(3)
+}
+Foo.a = function() {
+console.log(4)
+}
+Foo.a();
+let obj = new Foo();
+obj.a();
+Foo.a();
+```
+* 考点
+1. new Foo() 做了什么，参考[这里](https://github.com/Hanqing1996/JavaScript-advance/tree/master/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1#new-%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88)
+2. 如何通过作用域链查找变量
+* 答案
+```
+4
+2
+1
+```
+* 解析
+```
+function Foo() {
+    Foo.a = function() {
+    console.log(1)
+    }
+    this.a = function() {
+    console.log(2)
+    }
+}
 
+// 为 Foo 的原型挂载了方法
+Foo.prototype.a = function() {
+console.log(3)
+}
+
+// 为 Foo 直接挂载了方法（注意不是替换了 Foo 原型上的方法）
+Foo.a = function() {
+console.log(4)
+}
+
+
+Foo.a(); // 4
+let obj = new Foo(); // 执行构造函数后，Foo.a=function(){console.log(1)}; obj.a=function(){console.log(2)}
+obj.a(); // 2 
+Foo.a(); // 1
+```
 
 
