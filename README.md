@@ -175,3 +175,35 @@ define(function(require, exports, module) {
 > 原因 CommonJS 加载的是一个对象（即module.exports属性），该对象只有在脚本运行完才会生成。而 ES6 模块不是对象，它的对外接口只是一种静态定义，在代码静态解析阶段就会生成。
 ---
 #### No.27 全局作用域中，用 const 和 let 声明的变量不在 window 上，那到底在哪里？如何去获取？
+---
+#### No.33 下面的代码打印什么内容，为什么？
+```
+var b = 10;
+(function b(){
+    b = 20;
+    console.log(b); 
+})();
+```
+* 考点：在非匿名自执行函数中，函数变量为只读状态无法修改；
+* 解析
+```
+var b = 10;
+(function b() {
+    // 内部作用域，会先去查找是有已有变量b的声明，有就直接赋值20，确实有了呀。发现了具名函数 function b(){}，拿此b做赋值；
+    // IIFE的函数无法进行赋值（内部机制，非匿名自执行函数类似const定义的常量），所以无效。
+    // （这里说的“内部机制”，想搞清楚，需要去查阅一些资料，弄明白IIFE在JS引擎的工作方式，堆栈存储IIFE的方式等）
+    b = 20;
+    console.log(b); // [Function b]
+    console.log(window.b); // 10，不是20
+})();
+```
+稍微修改下就不一样了
+```
+(function A() {
+    console.log(A); // undefined
+    var A = 1;
+    console.log(window.A); // undefined
+    console.log(A); // 1
+}())
+```
+> var语句被hoist到函数顶端，函数内定义了变量A但是没有赋值，所以第一个log是undefined，因为有var，并没有向global添加属性，因此window.A也是undefined。
