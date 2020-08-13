@@ -426,3 +426,39 @@ console.log(a[b]);
     input_dom.addEventListener('compositionstart',onCompositionStart);
     input_dom.addEventListener('compositionend',onCompositionEnd);
 ```
+---
+#### No.83 var、let 和 const 区别的实现原理是什么?
+参考[var,const,let 的创建、初始化和赋值](https://github.com/Hanqing1996/-JavaScript-core-principles-parsing/blob/master/README.md#varfunctionlet-%E7%9A%84%E5%88%9B%E5%BB%BA%E5%88%9D%E5%A7%8B%E5%8C%96%E5%92%8C%E8%B5%8B%E5%80%BC)
+---
+#### No.96 介绍下前端加密的常见场景和方法
+---
+#### No.98 写出如下代码的打印结果
+```
+function changeObjProperty(o) {
+    o.siteUrl = "http://www.baidu.com"
+    o = new Object()
+    o.siteUrl = "http://www.google.com"
+  } 
+  let webSite = new Object();
+  changeObjProperty(webSite);
+  console.log(webSite.siteUrl);
+```
+* 答案
+```
+http://www.baidu.com
+```
+* 解析
+```
+// 上述代码等价于
+
+  let webSite = new Object();
+  let o=webSite;
+  o.siteUrl = "http://www.baidu.com"
+  o = new Object()
+  o.siteUrl = "http://www.google.com"
+  
+  console.log(webSite.siteUrl) // http://www.baidu.com
+```
+
+
+
