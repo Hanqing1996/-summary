@@ -1,3 +1,5 @@
+## JS基础
+
 #### [No2：['1', '2', '3'].map(parseInt) what & why ?](https://muyiy.cn/question/js/2.html)
 * [将字符串数组中的元素转为Number型，为什么不能直接用ParseInt](https://github.com/Hanqing1996/JavaScript-advance/tree/master/%E5%85%B6%E5%AE%832#%E5%B0%86%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E5%85%83%E7%B4%A0%E8%BD%AC%E4%B8%BAnumber%E5%9E%8B%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BD%E7%9B%B4%E6%8E%A5%E7%94%A8parseint)
 * [map](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
@@ -262,4 +264,31 @@ undefined
 * 解析
 ![dSAesO.png](https://s1.ax1x.com/2020/08/13/dSAesO.png)
 ---
-#### 
+#### No.58 箭头函数与普通函数（function）的区别是什么？构造函数（function）可以使用 new 生成实例，那么箭头函数可以吗？为什么？
+* 箭头函数是普通函数的简写，可以更优雅的定义一个函数，和普通函数相比，有以下几点差异：
+
+1、函数体内的 this 对象，就是定义时所在的对象，而不是使用时所在的对象。
+
+2、不可以使用 arguments 对象，该对象在函数体内不存在。如果要用，可以用 rest 参数代替。
+
+3、不可以使用 yield 命令，因此箭头函数不能用作 Generator 函数。
+
+4、不可以使用 new 命令，因为：
+
+> 没有自己的 this，无法调用 call，apply。
+> 没有 prototype 属性 ，而 new 命令在执行时需要将构造函数的 prototype 赋值给新的对象的 __proto__（见上面：原型）
+* new 过程大致是这样的：
+```
+function newFunc(father, ...rest) {
+  var result = {};
+  result.__proto__ = father.prototype;
+  var result2 = father.apply(result, rest); // father 为箭头函数时，无法绑定 this,所以 apply 失败
+  if (
+    (typeof result2 === 'object' || typeof result2 === 'function') &&
+    result2 !== null
+  ) {
+    return result2;
+  }
+  return result;
+}
+```
