@@ -517,5 +517,91 @@ let obj = new Foo(); // 执行构造函数后，Foo.a=function(){console.log(1)}
 obj.a(); // 2 
 Foo.a(); // 1
 ```
+---
+#### No.106 分别写出如下代码的返回值
+```
+String('11') == new String('11');
+String('11') === new String('11');
+```
+* 考点
+1. new newFunc 总是返回一个对象类型的值
+2. == 和 === 的判定规则，参考[这里](https://github.com/Hanqing1996/JavaScript-advance/blob/master/%E5%85%B6%E5%AE%831/README.md#%E5%92%8C)
+* 答案
+```
+true
+false
+```
+* 解析
+```
+1. ==时做了隐式转换，在 new String 生成对象后又调用了 toString
+2. 2者类型不一样，一个是string，一个是object，直接返回 false
+```
+---
+#### No.108 请写出如下代码的打印结果
+```
+var name = 'Tom';
+(function() {
+if (typeof name == 'undefined') {
+  var name = 'Jack';
+  console.log('Goodbye ' + name);
+} else {
+  console.log('Hello ' + name);
+}
+})();
+```
+* 考点
+1. var 的变量提升（在函数执行前就完成标识符的创建）
+2. var 服从函数作用域而非块级作用域
+* 答案
+```
+Goodbye Jack
+```
+* 解析：上面代码等价于
+```
+var name = 'Tom';
+(function() {
+var name
+if (typeof name == 'undefined') {
+  name = 'Jack';
+  console.log('Goodbye ' + name);
+} else {
+  console.log('Hello ' + name);
+}
+})();
+```
+---
+
+#### No.116 
+```
+1 + "1"
+
+2 * "2"
+
+[1, 2] + [2, 1]
+
+"a" + + "b"
+```
+* 考点：算术操作符
+1. 加性操作符：
+ * 如果只有一个操作数是字符串，则将另一个操作数转换为字符串，然后再将两个字符串拼接起来
+ * 如果是两个对象相加，先调用 valueOf(),如果不能得出结果，再调用 toString()
+ ```
+ new Number(200)+new Number(400) // 600;   new Number(200).valueOf() 结果为 200
+ 
+ new String("111")+new String("222") // "111222";   new Number("111").valueOf() 结果为 "111"
+ 
+ [1,2]+[3,4] // "1,23,4";   [1,2].valueOf() 结果为[1,2];所以接着调用toString();[1,2].toString='1,2';[3,4].toString='3,4';
+ ```
+2. 乘性操作符：如果有一个操作数不是数值，则在后台调用 Number()将其转换为数值
+* 答案
+```
+“11”
+"1,22,1"
+NaN// 相当于+"b"=NaN;"a"+NaN=NaN
+```
+
+
+
+
 
 
