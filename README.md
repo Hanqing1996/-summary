@@ -207,3 +207,58 @@ var b = 10;
 }())
 ```
 > var语句被hoist到函数顶端，函数内定义了变量A但是没有赋值，所以第一个log是undefined，因为有var，并没有向global添加属性，因此window.A也是undefined。
+---
+#### No.46 输出以下代码执行的结果并解释为什么
+```
+var obj = {
+    '2': 3,
+    '3': 4,
+    'length': 2,
+    'splice': Array.prototype.splice,
+    'push': Array.prototype.push
+}
+obj.push(1)
+obj.push(2)
+console.log(obj)
+```
+答案
+```
+var obj = {
+    '2': 3,
+    '3': 4,
+    'length': 2,
+    'splice': Array.prototype.splice,
+    'push': Array.prototype.push
+}
+obj.push(1)
+obj.push(2)
+console.log(obj)
+```
+* 解析:MDN 对 push 方法的描述
+> push 方法具有通用性。该方法和 call() 或 apply() 一起使用时，可应用在类似数组的对象上。push 方法根据 length 属性来决定从哪里开始插入给定的值。如果 length 不能被转成一个数值，则插入的元素索引为 0，包括 length 不存在时。当 length 不存在时，将会创建它。
+
+> 当调用该方法时，新的 length 属性值将被返回。
+---
+#### No.48 call 和 apply 的区别是什么，哪个性能更好一些?
+* Function.prototype.apply和Function.prototype.call 的作用是一样的，区别在于传入参数的不同；
+1. 第一个参数都是，指定函数体内this的指向；
+2. 第二个参数开始不同，apply是传入带下标的集合，数组或者类数组，apply把它传给函数作为参数，call从第二个开始传入的参数是不固定的，都会传给函数作为参数。
+> call比apply的性能要好，平常可以多用call, call传入参数的格式正是内部所需要的格式，
+---
+#### No.53 输出以下代码的执行结果并解释为什么
+```
+var a = {n: 1};
+var b = a;
+a.x = a = {n: 2};
+
+console.log(a.x) 	
+console.log(b.x)
+```
+* 答案
+```
+undefined
+{ n: 2 }
+```
+* 解析
+![dSAesO.png](https://s1.ax1x.com/2020/08/13/dSAesO.png)
+---
