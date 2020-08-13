@@ -292,3 +292,20 @@ function newFunc(father, ...rest) {
   return result;
 }
 ```
+---
+#### No.65 a.b.c.d 和 a['b']['c']['d']，哪个性能更高?
+> 应该是 a.b.c.d 比 a['b']['c']['d'] 性能高点，后者还要考虑 [ ] 中是变量的情况
+---
+#### No.66 ES6 代码转成 ES5 代码的实现思路是什么
+1. 将代码字符串解析成抽象语法树，即所谓的 AST
+2. 对 AST 进行处理，在这个阶段可以对 ES6 代码进行相应转换，即转成 ES5 代码
+3. 根据处理后的 AST 再生成代码字符串
+---
+#### No.72 为什么普通 for 循环的性能远远高于 forEach 的性能，请解释其中的原因。
+for 循环没有任何额外的函数调用栈和上下文；
+
+forEach函数签名实际上是
+
+array.forEach(function(currentValue, index, arr), thisValue)
+
+它不是普通的 for 循环的语法糖，还有诸多参数和上下文需要在执行的时候考虑进来，这里可能拖慢性能；
