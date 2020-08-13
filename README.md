@@ -309,3 +309,120 @@ forEach函数签名实际上是
 array.forEach(function(currentValue, index, arr), thisValue)
 
 它不是普通的 for 循环的语法糖，还有诸多参数和上下文需要在执行的时候考虑进来，这里可能拖慢性能；
+
+---
+#### No.75 数组里面有10万个数据，取第一个元素和第10万个元素的时间相差多少
+> JavaScript 没有真正意义上的数组，所有的数组其实是对象，其“索引”看起来是数字，其实会被转换成字符串，作为属性名（对象的 key）来使用。所以无论是取第 1 个还是取第 10 万个元素，都是用 key 精确查找哈希表的过程，其消耗时间大致相同
+---
+#### No.76 输出以下代码运行结果
+```
+// example 1
+var a={}, b='123', c=123;  
+a[b]='b';
+a[c]='c';  
+console.log(a[b]);
+
+---------------------
+// example 2
+var a={}, b=Symbol('123'), c=Symbol('123');  
+a[b]='b';
+a[c]='c';  
+console.log(a[b]);
+
+---------------------
+// example 3
+var a={}, b={key:'123'}, c={key:'456'};  
+a[b]='b';
+a[c]='c';  
+console.log(a[b]);
+```
+* 解析
+1. symbol 用于生成一个唯一字段值
+2. 对象的键名的转换 
+   * 对象的键名只能是字符串和 Symbol 类型。
+   * 其他类型的键名会被转换成字符串类型。
+   * 对象转字符串默认会调用 toString 方法。
+3. 对象的 toString 结果是 [object Object]
+```
+let obj={a:1,b:2}
+console.log(obj.toString())// [object Object]
+```
+所以
+```
+// example 1
+var a={}, b='123', c=123;
+a[b]='b';
+
+// c 的键名会被转换成字符串'123'，这里会把 b 覆盖掉。
+a[c]='c';  
+
+// 输出 c
+console.log(a[b]);
+```
+```
+// example 2
+var a={}, b=Symbol('123'), c=Symbol('123');  
+
+// b 是 Symbol 类型，不需要转换。
+a[b]='b';
+
+// c 是 Symbol 类型，不需要转换。任何一个 Symbol 类型的值都是不相等的，所以不会覆盖掉 b。
+a[c]='c';
+
+// 输出 b
+console.log(a[b]);
+```
+```
+// example 3
+var a={}, b={key:'123'}, c={key:'456'};  
+
+// b 不是字符串也不是 Symbol 类型，需要转换成字符串。
+// 对象类型会调用 toString 方法转换成字符串 [object Object]。
+a[b]='b';
+
+// c 不是字符串也不是 Symbol 类型，需要转换成字符串。
+// 对象类型会调用 toString 方法转换成字符串 [object Object]。这里会把 b 覆盖掉。
+a[c]='c';  
+
+// 输出 c
+console.log(a[b]);
+```
+---
+#### No.79 input 搜索如何防抖，如何处理中文输入
+> 参考vue源码对v-model的实现中，对输入中文的处理
+```
+<input id='myinput'>
+```
+```
+    function jeiliu(timeout){
+        var timer;
+        function input(e){
+        if(e.target.composing){
+            return ;
+        }
+        if(timer){
+           clearTimeout(timer);
+        }
+        timer = setTimeout(() => {
+               console.log(e.target.value);
+               timer = null;
+           }, timeout); 
+        }
+        return input;
+    }
+
+    function onCompositionStart(e){
+        e.target.composing = true;
+    }
+    function onCompositionEnd(e){
+        //console.log(e.target)
+        e.target.composing = false;
+        var event = document.createEvent('HTMLEvents');
+        event.initEvent('input');
+        e.target.dispatchEvent(event);
+    }
+    var input_dom = document.getElementById('myinput');
+    input_dom.addEventListener('input',jeiliu(1000));
+    input_dom.addEventListener('compositionstart',onCompositionStart);
+    input_dom.addEventListener('compositionend',onCompositionEnd);
+```
