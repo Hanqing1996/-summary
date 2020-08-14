@@ -524,7 +524,7 @@ String('11') == new String('11');
 String('11') === new String('11');
 ```
 * 考点
-1. new newFunc 总是返回一个对象类型的值
+1. new newFunc 总是返回一个对象类型的值,参考[这里](https://github.com/Hanqing1996/JavaScript-advance/tree/master/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1#new-%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88)
 2. == 和 === 的判定规则，参考[这里](https://github.com/Hanqing1996/JavaScript-advance/blob/master/%E5%85%B6%E5%AE%831/README.md#%E5%92%8C)
 * 答案
 ```
@@ -581,26 +581,43 @@ if (typeof name == 'undefined') {
 
 "a" + + "b"
 ```
-* 考点：算术操作符
-1. 加性操作符：
- * 如果只有一个操作数是字符串，则将另一个操作数转换为字符串，然后再将两个字符串拼接起来
- * 如果是两个对象相加，先调用 valueOf(),如果不能得出结果，再调用 toString()
- ```
- new Number(200)+new Number(400) // 600;   new Number(200).valueOf() 结果为 200
- 
- new String("111")+new String("222") // "111222";   new Number("111").valueOf() 结果为 "111"
- 
- [1,2]+[3,4] // "1,23,4";   [1,2].valueOf() 结果为[1,2];所以接着调用toString();[1,2].toString='1,2';[3,4].toString='3,4';
- ```
-2. 乘性操作符：如果有一个操作数不是数值，则在后台调用 Number()将其转换为数值
+* 考点：算术操作符,参考[这里](https://github.com/Hanqing1996/JavaScript-advance/blob/master/%E5%85%B6%E5%AE%831/README.md#%E7%AE%97%E6%9C%AF%E6%93%8D%E4%BD%9C%E7%AC%A6)
 * 答案
 ```
-“11”
+"11"
+4
 "1,22,1"
-NaN// 相当于+"b"=NaN;"a"+NaN=NaN
+'aNaN'
 ```
+* 解析
+```
+1 + "1"
+/**
+ * ToPrimitive(1,number)=1
+ * ToPrimitive("1",number)="1"
+ * 两个操作数中存在字符串，所以返回 ToString(1)+ToString(1)，结果为"11"
+ */
 
+2 * "2"
+/**
+ * 2*Number("2")=4
+ */
 
+[1, 2] + [2, 1]
+/**
+ * ToPrimitive([1, 2],number)=“1，2”（先调用 valueOf，得到的 [1,2]不是基本类型，于是调用 toString 得到 "1,2"）
+ * 同上理，ToPrimitive([2, 1],number)=“2,1”
+ * ToString("1,2")+ToString("2,1")结果为"1,22,1"
+ */
+
+"a" + + "b"
+/**
+ * 先计算 +"b":ToNumber("b")结果为 NaN,所以+"b"=NaN 
+ * ToPrimitive(NaN)得到"NaN"（先调用 valueOf，得到的 NaN不是基本类型，于是调用 toString 得到 "NaN"）
+ * 现在计算 “a”+"NaN"
+ * ToString("a")+ToString("NaN")结果为"aNaN"
+ */
+```
 
 
 
