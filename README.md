@@ -618,6 +618,50 @@ if (typeof name == 'undefined') {
  * ToString("a")+ToString("NaN")结果为"aNaN"
  */
 ```
+---
+#### No.129 输出以下代码执行结果
+```
+function wait() {
+  return new Promise(resolve =>
+    setTimeout(resolve, 10 * 1000)
+  )
+}
+
+async function main() {
+  const x = wait();
+  const y = wait();
+  const z = wait();
+  await x;
+  await y;
+  await z;
+  console.timeEnd();
+}
+main();
+```
+* 答案
+```
+```
+* 解析
+> 这道题不建议用 Eventloop 的微任务/宏任务队列来解释，会很乱（事实上网上对这题的讨论也不涉及微任务/宏任务）
+
+1. 三个setTimeout被执行，它们的回调函数（即 resolve），将在所有同步代码执行完毕的10s后被调用
+```
+  const x = wait();
+  const y = wait();
+  const z = wait();
+```
+2. 阻塞后面的代码，直到 resolve 被调用，获取 resolve 结果，等待花了10s。注意10s后，其实三个 resolve 都调用完毕了
+```
+await x;
+```
+3. 阻塞后面的代码，执行该句代码时，其实对应的 resolve 已经被调用，因而不必等待就拿到了 resolve 结果
+```
+await y;
+```
+4. 同上，不必等待
+```
+await z;
+```
 
 
 
