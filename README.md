@@ -640,29 +640,84 @@ main();
 ```
 * 答案
 ```
+default: 10959.724365234375ms
 ```
 * 解析
 > 这道题不建议用 Eventloop 的微任务/宏任务队列来解释，会很乱（事实上网上对这题的讨论也不涉及微任务/宏任务）
+```
+// 等价于
 
-1. 三个setTimeout被执行，它们的回调函数（即 resolve），将在所有同步代码执行完毕的10s后被调用
+function main() {
+    return new Promise((resolve, reject) => {
+        console.time();
+        Promise.resolve(
+            new Promise(resolve => setTimeout(resolve, 10 * 1000))
+        ).then(() => {
+            Promise.resolve(
+                new Promise(resolve => setTimeout(resolve, 10 * 1000))
+            ).then(() => {
+                Promise.resolve(
+                    new Promise(resolve => setTimeout(resolve, 10 * 1000))
+                ).then(() => {
+                    console.timeEnd();
+                });
+            });
+        });
+    });
+}
+main()
 ```
-  const x = wait();
-  const y = wait();
-  const z = wait();
+---
+#### No.130 第 130 题：输出以下代码执行结果
 ```
-2. 阻塞后面的代码，直到 resolve 被调用，获取 resolve 结果，等待花了10s。注意10s后，其实三个 resolve 都调用完毕了
-```
-await x;
-```
-3. 阻塞后面的代码，执行该句代码时，其实对应的 resolve 已经被调用，因而不必等待就拿到了 resolve 结果
-```
-await y;
-```
-4. 同上，不必等待
-```
-await z;
-```
+function wait() {
+  return new Promise(resolve =>
+    setTimeout(resolve, 10 * 1000)
+  )
+}
 
+async function main() {
+  console.time();
+  await wait();
+  await wait();
+  await wait();
+  console.timeEnd();
+}
+main();
+```
+* 答案
+```
+default: 30959.724365234375ms
+```
+* 解析
+```
+// 等价于
+
+function main() {
+    return new Promise((resolve, reject) => {
+        console.time();
+        const x = new Promise(resolve =>
+            setTimeout(resolve, 10 * 1000)
+        )
+        const y = new Promise(resolve =>
+            setTimeout(resolve, 10 * 1000)
+        )
+        const z = new Promise(resolve =>
+            setTimeout(resolve, 10 * 1000)
+        )
+
+        Promise.resolve(x).then(() => {
+            Promise.resolve(y).then(() => {
+                Promise.resolve(z).then(() => {
+                    console.timeEnd();
+                })
+            })
+        })
+    })
+}
+main()
+```
+---
 
 
 
