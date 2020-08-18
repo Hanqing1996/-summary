@@ -55,7 +55,6 @@ function changeObjProperty(o) {
 ```
 * No.100 请写出如下代码的打印结果
 ```
-```
 function Foo() {
 Foo.a = function() {
 console.log(1)
@@ -74,7 +73,6 @@ Foo.a();
 let obj = new Foo();
 obj.a();
 Foo.a();
-```
 ```
 * No.106 分别写出如下代码的返回值
 ```
@@ -139,3 +137,12 @@ async function main() {
 }
 main();
 ```
+---
+
+#### 异步
+* No.9 Async/Await 如何通过同步的方式实现异步
+
+
+#### 框架
+* No.1 写 React / Vue 项目时为什么要在列表组件中写 key，其作用是什么？
+
