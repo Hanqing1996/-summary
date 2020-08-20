@@ -101,7 +101,7 @@ if (typeof name == 'undefined') {
 
 "a" + + "b"
 ```
-* No.129 输出以下代码执行结果
+* ❌ No.129 输出以下代码执行结果
 ```
 function wait() {
   return new Promise(resolve =>
@@ -120,7 +120,7 @@ async function main() {
 }
 main();
 ```
-* No.130 第 130 题：输出以下代码执行结果
+* ❌ No.130 第 130 题：输出以下代码执行结果
 ```
 function wait() {
   return new Promise(resolve =>
@@ -141,7 +141,7 @@ main();
 
 #### 异步
 * No.9 Async/Await 如何通过同步的方式实现异步？
-* No.10 异步笔试题，请写出下面代码的运行结果
+* ❌ No.10 异步笔试题，请写出下面代码的运行结果
 ```
 async function async1() {
     console.log('async1 start');
@@ -164,8 +164,9 @@ new Promise(function(resolve) {
 });
 console.log('script end');
 ```
-* No.64 模拟实现一个 Promise.finally
-
+* ❌ No.64 模拟实现一个 Promise.finally
+* ❌ No.65 介绍下 Promise.all 使用、原理实现及错误处理
+* ❌ No.89 设计并实现 Promise.race()
 
 
 
@@ -186,7 +187,7 @@ console.log('script end');
 
 
 #### 框架
-* ❌ No.1【TODO】 写 React / Vue 项目时为什么要在列表组件中写 key，其作用是什么？
+* ❌ No.1 写 React / Vue 项目时为什么要在列表组件中写 key，其作用是什么？
 
 
 
