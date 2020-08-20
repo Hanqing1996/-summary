@@ -140,9 +140,53 @@ main();
 ---
 
 #### 异步
-* No.9 Async/Await 如何通过同步的方式实现异步
+* No.9 Async/Await 如何通过同步的方式实现异步？
+* No.10 异步笔试题，请写出下面代码的运行结果
+```
+async function async1() {
+    console.log('async1 start');
+    await async2();
+    console.log('async1 end');
+}
+async function async2() {
+    console.log('async2');
+}
+console.log('script start');
+setTimeout(function() {
+    console.log('setTimeout');
+}, 0)
+async1();
+new Promise(function(resolve) {
+    console.log('promise1');
+    resolve();
+}).then(function() {
+    console.log('promise2');
+});
+console.log('script end');
+```
+* No.64 模拟实现一个 Promise.finally
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #### 框架
-* No.1【TODO】 写 React / Vue 项目时为什么要在列表组件中写 key，其作用是什么？
+* ❌ No.1【TODO】 写 React / Vue 项目时为什么要在列表组件中写 key，其作用是什么？
+
+
 
