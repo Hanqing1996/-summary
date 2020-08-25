@@ -17,7 +17,7 @@ var b = 10;
 * No.66 ES6 代码转成 ES5 代码的实现思路是什么?
 * No.72 为什么普通 for 循环的性能远远高于 forEach 的性能，请解释其中的原因。
 * No.75 数组里面有10万个数据，取第一个元素和第10万个元素的时间相差多少
-* ❌ No.76 输出以下代码运行结果
+* No.76 输出以下代码运行结果
 ```
 // example 1
 var a={}, b='123', c=123;  
@@ -101,7 +101,7 @@ if (typeof name == 'undefined') {
 
 "a" + + "b"
 ```
-* ❌ No.129 输出以下代码执行结果
+* No.129 输出以下代码执行结果
 ```
 function wait() {
   return new Promise(resolve =>
@@ -120,7 +120,7 @@ async function main() {
 }
 main();
 ```
-* ❌ No.130 第 130 题：输出以下代码执行结果
+* No.130 第 130 题：输出以下代码执行结果
 ```
 function wait() {
   return new Promise(resolve =>
@@ -141,7 +141,8 @@ main();
 
 #### 异步
 * No.9 Async/Await 如何通过同步的方式实现异步？
-* ❌ No.10 异步笔试题，请写出下面代码的运行结果
+---
+* No.10 异步笔试题，请写出下面代码的运行结果
 ```
 async function async1() {
     console.log('async1 start');
@@ -164,12 +165,12 @@ new Promise(function(resolve) {
 });
 console.log('script end');
 ```
-* ❌ No.64 模拟实现一个 Promise.finally
-* ❌ No.65 介绍下 Promise.all 使用、原理实现及错误处理
-* ❌ No.89 设计并实现 Promise.race()
+* No.64 模拟实现一个 Promise.finally
+* No.65 介绍下 Promise.all 使用、原理实现及错误处理
+* No.89 设计并实现 Promise.race()
 ---
 #### 编程
-* ❌ No.6【TODO】 请分别用深度优先思想和广度优先思想实现一个拷贝函数？
+* No.6【TODO】 请分别用深度优先思想和广度优先思想实现一个拷贝函数？
 * No.11 算法手写题
 
 已知如下数组：
@@ -177,14 +178,26 @@ console.log('script end');
 var arr = [ [1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14] ] ] ], 10];
 ```
 编写一个程序将数组扁平化去并除其中重复部分数据，最终得到一个升序且不重复的数组
-
-
-
-
-
-
-
-
+* No.31 改造下面的代码，使之输出0 - 9，写出你能想到的所有解法。
+```javascript
+for (var i = 0; i< 10; i++){
+	setTimeout(() => {
+		console.log(i);
+    }, 1000)
+}
+```
+---
+* No.36 使用迭代的方式实现 flatten 函数
+* No.38 下面代码中 a 在什么情况下会打印 1？
+```javascript
+if(a == 1 && a == 2 && a == 3){
+ 	console.log(1);               
+}                  
+```
+---
+#### No.42 实现一个 sleep 函数
+比如 sleep(1000) 意味着等待1000毫秒，可从 Promise、Generator、Async/Await 等角度实现
+---
 
 
 
@@ -209,18 +222,7 @@ var arr = [ [1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14] ] ] ], 
 
 
 #### 框架
-* ❌ No.1 写 React / Vue 项目时为什么要在列表组件中写 key，其作用是什么？
-
-
-
-
-```
-
-a:1
-b:123
-c:'hi'
-
-```
+* No.1 写 React / Vue 项目时为什么要在列表组件中写 key，其作用是什么？
 
 
 
