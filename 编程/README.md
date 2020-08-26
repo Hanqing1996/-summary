@@ -80,3 +80,40 @@ if(a == 1 && a == 2 && a == 3){
 ---
 #### No.42 实现一个 sleep 函数
 比如 sleep(1000) 意味着等待1000毫秒，可从 Promise、Generator、Async/Await 等角度实现
+
+> 考察如何阻塞同步代码，无非就是利用 Promise 的 resolve,async/await,Generator 的 yield 暂停机制
+
+* Promise
+```
+const sleep=time=>new Promise(resolve=>setTimeout(resolve,time));
+sleep(1000).then(()=>console.log(1));
+```
+* Async/Await
+> 只是上面的代码换个形式
+```
+function sleep(time){
+    return new Promise(resolve => setTimeout(resolve,time))
+}
+async function then(){
+    await sleep(1000);
+    console.log(1);
+}
+then();
+```
+* Generator
+``` 
+function sleep(time){
+    setTimeout(()=>{
+        it.next()
+    },3000)
+}
+
+function *gen(){
+    yield sleep(1000)
+    yield console.log(1)
+}
+
+let it=gen();
+it.next();
+```
+---
