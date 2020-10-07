@@ -229,7 +229,7 @@ LazyMan('Tony').eat('lunch').eat('dinner').sleepFirst(5).sleep(10).eat('junk foo
 ```
 ---
 
-#### 【TODO】No.71 实现一个字符串匹配算法，从长度为 n 的字符串 S 中，查找是否存在字符串 T，T 的长度是 m，若存在返回所在位置。
+#### No.71【TODO】 实现一个字符串匹配算法，从长度为 n 的字符串 S 中，查找是否存在字符串 T，T 的长度是 m，若存在返回所在位置。
 ---
 
 
@@ -250,7 +250,8 @@ LazyMan('Tony').eat('lunch').eat('dinner').sleepFirst(5).sleep(10).eat('junk foo
 
 
 #### 框架
-#### No.1 写 React / Vue 项目时为什么要在列表组件中写 key，其作用是什么？
+#### No.1【TODO】 写 React / Vue 项目时为什么要在列表组件中写 key，其作用是什么？
+#### No.29 聊聊 Vue 的双向数据绑定，Model 如何改变 View，View 又是如何改变 Model 的
 
 
 
